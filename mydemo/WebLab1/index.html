@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+.hide {
+  transition: all linear 1.0s;
+  background-color: white;
+  height: 100px;
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.ng-hide {
+  height: 0;
+  width: 0;
+  background-color: transparent;
+  top: 	500px;
+  left: 0px;
+}
+</style>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular-animate.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" ng-controller="formCtrl">
+	要加入steam神教请在下面输入你的姓名<br><br>
+  <form novalidate>
+    First Name:<br>
+    <input type="text" ng-model="user.firstName"><br>
+    Last Name:<br>
+    <input type="text" ng-model="user.lastName">
+    <br>
+    <button ng-click="reset()">RESET</button>
+  </form>
+  <p>你的姓名为： {{user.firstName + user.lastName }}</p>
+  <p>请右手握拳，举在太阳穴旁，大声读出下面的誓言完成宣誓：</p>
+  <p>我，{{user.firstName + user.lastName }}，坚持贯彻G胖大邪神的两个凡是原则，凡是没登陆steam的游戏我们都要果断的破解，凡是不能喜加一的游戏我们都要爽快的盗版！G胖大神是全宇宙唯一的信仰唯一的真理，最至高无上的存在，游戏不拿到steam上卖或者不能steam激活，就是对这位唯一的真神的亵渎，就是全人类的公敌！这些亵渎神明的人总有一天会被法力无边的G胖大邪神惩罚的！</p>
+
+  请输入你的邮箱以方便接受我们最新的打折信息。<br>
+  <form name="myForm" novalidate>
+  <p>邮箱:<br>
+  <input type="email" name="email" ng-model="email" required>
+  <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+  <span ng-show="myForm.email.$error.required">邮箱是必须的。</span>
+  <span ng-show="myForm.email.$error.email">非法的邮箱地址。</span>
+  </span>
+  </p>
+
+  <p>
+  <input type="submit"
+  ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||  
+  myForm.email.$dirty && myForm.email.$invalid">
+  </p>
+  <br>
+  </form>
+
+  点击为G胖+1$ <button ng-click="count = count + 1">点我！</button>
+  <br>
+  <p>你已经为信仰充值了 {{ count }} 刀</p>
+
+  <h1>打勾隐藏唯一真神G胖画像（你真的忍心这样做吗？）: <input type="checkbox" ng-model="myCheck"></h1>
+
+	<div ng-hide="myCheck" class="hide">
+		<img src="images/gfat.jpg">
+	</div>
+
+</div>
+
+<script>
+var app = angular.module('myApp', ['ngAnimate']);
+app.controller('formCtrl', function($scope) {
+    $scope.master = {firstName:"阿里", lastName:"奔奔"};
+    $scope.reset = function() {
+        $scope.user = angular.copy($scope.master);
+    };
+    $scope.count = 0;
+    $scope.email = 'john.doe@gmail.com';
+    $scope.reset();
+});
+
+</script>
+
+</body>
+</html>
